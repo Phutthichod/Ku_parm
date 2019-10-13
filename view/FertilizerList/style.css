@@ -1,0 +1,14 @@
+#card1-detail{
+    background-color:white;
+}
+
+#card1,#header-card{
+    background-color:#F44336;
+}
+#card1-detail,#card2-detail,#card3-detail
+{
+    border-color: coral;
+}
+#header-card{
+    color:white;
+}

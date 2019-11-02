@@ -9,7 +9,7 @@ $password = $_POST['password'];
 
 print "user $username passwd $password";
 $pwd = ($password);
-$sql = "SELECT * FROM `user-list` WHERE `u-name` = '".$username."' AND `u-pwd` = '".$pwd."'";
+$sql = "SELECT * FROM `db-user` WHERE `UserName` = '".$username."' AND `PWD` = '".$pwd."'";
 //echo $sql ;
 $DATA = selectData( $sql );
 print_r($DATA);
@@ -20,22 +20,22 @@ print_r($DATA);
 if(sizeof($DATA) == 2)
 {
     
-    if($DATA[1]['u-is-admin'] == 1)
+    if($DATA[1]['IsAdmin'] == 1)
     {
         header("location:./view/UserProfile/UserProfile.php");
         $typeid = 1 ;
     }
-    else if($DATA[1]['u-is-researcher'] == 1)
+    else if($DATA[1]['IsResearch'] == 1)
     {
         header("location:./view/UserProfile/UserProfile.php");
         $typeid = 2;
     }
-    else if($DATA[1]['u-is-officer'] == 1)
+    else if($DATA[1]['IsOperator'] == 1)
     {
         header("location:./view/UserProfile/UserProfile.php");
         $typeid = 3 ;
     }
-    else if($DATA[1]['u-is-farmer']== 1)
+    else if($DATA[1]['IsFarmer']== 1)
     {   
         header("location:./view/UserProfile/UserProfile.php");
         $typeid = 4;

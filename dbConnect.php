@@ -12,13 +12,13 @@ function connectDB(){
 	// $password = "";
 
 	try {
-		$conn = new PDO("mysql:host=$servername;dbname=palmweb2561;charset=utf8", $username, $password);
+		$conn = new PDO("mysql:host=$servername;dbname=palm3;charset=utf8", $username, $password);
 
     		// $conn = new PDO("mysql:host=$servername;dbname=palmWeb2561;charset=utf8", $username, $password);
     		// set the PDO error mode to exception
     		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		//$conn->setAttribute(PDO::SQLSRV_ATTR_ENCODING, PDO::SQLSRV_ENCODING_UTF8);
-    		echo "Connected successfully";
+    		// echo "Connected successfully";
 		return $conn; 
 	}
 	catch(PDOException $e){
@@ -54,7 +54,34 @@ function selectData( $str ){
 	
 	//$conn = null;
 }
+function select( $str ){
 
+	$myConDB = connectDB();
+
+	try {
+    		$stmt = $myConDB->prepare( $str ); 
+    		$stmt->execute();
+
+		$num = 0;
+		while( $result = $stmt->fetch(PDO::FETCH_ASSOC) ){
+			$num++;
+    			foreach($result as $key => $value) {
+        			//echo $key . "-----" . $value . "<br/>";
+				$data[$num][$key] = $value;
+    			}
+		}
+		// $data[0]['numrow'] = $num;
+		$conn = null;
+		return $data;
+
+	}
+	catch(PDOException $e) {
+		$conn = null;
+    		return "Error: " . $e->getMessage();
+	}
+	
+	//$conn = null;
+}
 function selectDataOne ( $str ){
 	$myConDB = connectDB();
 
@@ -150,6 +177,21 @@ function addinsertData( $str ){
 		$conn = null;
                 return "Error: " . $e->getMessage();
         }
+}
+function deletedata( $str){
+	$myConDB = connectDB();
+	try {
+		$stmt = $myConDB->prepare( $str );
+		$stmt->execute();
+
+$conn = null;
+		return "OK";
+
+}
+catch(PDOException $e) {
+$conn = null;
+		return "Error: " . $e->getMessage();
+}
 }
 
 
